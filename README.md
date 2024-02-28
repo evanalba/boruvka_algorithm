@@ -1,1 +1,1 @@
-# boruvka_algorithm
+# Borůvka's algorithm
