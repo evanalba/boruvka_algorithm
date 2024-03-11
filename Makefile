@@ -7,4 +7,4 @@ all: $(TARGET)
 $(TARGET): $(TARGET).cpp
 	$(CXX) $(CXXFLAGS) $(TARGET).cpp
 clean:
-	$(RM) $(TARGET)
+	$(RM) a.out
