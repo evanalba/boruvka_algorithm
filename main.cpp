@@ -95,7 +95,7 @@ void boruvka(std::vector<Edge> edges, int total_vertices) {
     delete[] lowest_edge;
 }
 
-void kruskal(std::vector<Edge> edges, int total_vertices) {
+void kruskal(const std::vector<Edge> &edges, int total_vertices) {
     std::vector<Edge> mst;
     int mst_weight = 0;
 
@@ -127,15 +127,18 @@ void kruskal(std::vector<Edge> edges, int total_vertices) {
 }
 
 int get_min_key(const std::vector<int> &key, const std::vector<bool> &in_mst) {
-    int min = INT_MAX, min_index;
+    int min = INT_MAX;
+    int min_index = -1;
 
     for (int v = 0; v < key.size(); v++) {
-        if (in_mst[v] == false && key[v] < min)
-            min = key[v], min_index = v;
+        if (in_mst[v] == false && key[v] < min) {
+            min = key[v];
+            min_index = v;
+        }
     }
-
     return min_index;
 }
+
 int find_edge(const std::vector<Edge> &graph, int source, int destination) {
     for (int edge = 0; edge < graph.size(); edge++) {
         if (((graph[edge].source == source) && (graph[edge].destination == destination)) ||
@@ -146,7 +149,7 @@ int find_edge(const std::vector<Edge> &graph, int source, int destination) {
     return -1;
 }
 
-void printMST(const std::vector<Edge> &graph, const std::vector<int> &mst_parent, const int total_vertices) {
+void print_prim(const std::vector<Edge> &graph, const std::vector<int> &mst_parent, const int total_vertices) {
     std::cout << "Selected Edges:" << std::endl;
     for (int vertex = 1; vertex < total_vertices; vertex++) {
         int edge_index = find_edge(graph, mst_parent[vertex], vertex);
@@ -154,7 +157,7 @@ void printMST(const std::vector<Edge> &graph, const std::vector<int> &mst_parent
     }
 }
 
-void primMST(std::vector<std::vector<int>> graph, const int total_vertices) {
+void prim(const std::vector<std::vector<int>>& graph, const int total_vertices) {
     std::vector<int> mst_parent(total_vertices);
     std::vector<int> key(total_vertices);
     std::vector<bool> in_mst(total_vertices, false);
@@ -189,7 +192,7 @@ void primMST(std::vector<std::vector<int>> graph, const int total_vertices) {
     }
 
     std::cout << "Prim's Minimum Spanning Tree Weight: " << mst_weight << std::endl;
-    printMST(mst, mst_parent, total_vertices);
+    print_prim(mst, mst_parent, total_vertices);
 }
 
 int main() {
@@ -215,7 +218,7 @@ int main() {
                                            {0, 0, 3, 0, 3, 0},
                                            {0, 0, 4, 3, 0, 2},
                                            {0, 3, 2, 0, 2, 0}};
-    primMST(graph, total_vertices);
+    prim(graph, total_vertices);
 
     return 0;
 }

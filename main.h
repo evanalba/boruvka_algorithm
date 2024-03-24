@@ -8,16 +8,14 @@ struct Edge {
 };
 struct Node {
     int parent, rank;
-    void set_key(int key) {
-        rank = key;
-    }
-    int get_key() {
-        return rank;
-    }
 };
 bool compare_weights(const Edge &a, const Edge &b);
 int find_set(Node vertex[], int i);
 void union_sets(Node vertex[], int x, int y);
 void boruvka(std::vector<Edge> edges, int total_vertices);
-void kruskal(std::vector<Edge> edges, int total_vertices);
+void kruskal(const std::vector<Edge> &edges, int total_vertices);
+int get_min_key(const std::vector<int> &key, const std::vector<bool> &in_mst);
+int find_edge(const std::vector<Edge> &graph, int source, int destination);
+void print_prim(const std::vector<Edge> &graph, const std::vector<int> &mst_parent, const int total_vertices);
+void prim(const std::vector<std::vector<int>>& graph, const int total_vertices);
 #endif
