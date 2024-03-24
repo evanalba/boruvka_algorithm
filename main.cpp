@@ -1,15 +1,10 @@
+#include "main.h"
 #include <algorithm>
 #include <iostream>
+#include <limits>
 #include <memory>
+#include <queue>
 #include <vector>
-
-struct Edge {
-    int source, destination, weight;
-};
-
-struct Node {
-    int parent, rank;
-};
 
 // Sort edges by weight in ascending order.
 bool compare_weights(const Edge &a, const Edge &b) {
@@ -40,7 +35,7 @@ void union_sets(Node vertex[], int x, int y) {
 
 void boruvka(std::vector<Edge> edges, int total_vertices) {
     std::vector<Edge> mst;
-    int MSTWeight = 0;
+    int mst_weight = 0;
 
     Node *vertex = new Node[total_vertices];
     int *lowest_edge = new int[total_vertices];
@@ -80,7 +75,7 @@ void boruvka(std::vector<Edge> edges, int total_vertices) {
 
                 if (set1 != set2) {
                     mst.push_back(edges[lowest_edge[v]]);
-                    MSTWeight += edges[lowest_edge[v]].weight;
+                    mst_weight += edges[lowest_edge[v]].weight;
                     union_sets(vertex, set1, set2);
                     numTrees--;
                 }
@@ -90,7 +85,7 @@ void boruvka(std::vector<Edge> edges, int total_vertices) {
         }
     }
 
-    std::cout << "Boruvka's Minimum Spanning Tree Weight: " << MSTWeight << std::endl;
+    std::cout << "Boruvka's Minimum Spanning Tree Weight: " << mst_weight << std::endl;
     std::cout << "Selected Edges:" << std::endl;
     for (const Edge &edge : mst) {
         std::cout << edge.source << " -- " << edge.destination << " \tWeight: " << edge.weight << std::endl;
@@ -100,9 +95,9 @@ void boruvka(std::vector<Edge> edges, int total_vertices) {
     delete[] lowest_edge;
 }
 
-void kruskal(std::vector<Edge> &edges, int total_vertices) {
+void kruskal(std::vector<Edge> edges, int total_vertices) {
     std::vector<Edge> mst;
-    int MSTWeight = 0;
+    int mst_weight = 0;
 
     Node *vertex = new Node[total_vertices];
     for (int id = 0; id < total_vertices; id++) {
@@ -118,11 +113,11 @@ void kruskal(std::vector<Edge> &edges, int total_vertices) {
         int set2 = find_set(vertex, e.destination);
         if (set1 != set2) {
             mst.push_back(e);
-            MSTWeight += e.weight;
+            mst_weight += e.weight;
             union_sets(vertex, set1, set2);
         }
     }
-    std::cout << "Kruskal's Minimum Spanning Tree Weight: " << MSTWeight << std::endl;
+    std::cout << "Kruskal's Minimum Spanning Tree Weight: " << mst_weight << std::endl;
     std::cout << "Selected Edges:" << std::endl;
     for (const Edge &edge : mst) {
         std::cout << edge.source << " -- " << edge.destination << " \tWeight: " << edge.weight << std::endl;
@@ -131,9 +126,73 @@ void kruskal(std::vector<Edge> &edges, int total_vertices) {
     delete[] vertex;
 }
 
+int get_min_key(const std::vector<int> &key, const std::vector<bool> &in_mst) {
+    int min = INT_MAX, min_index;
+
+    for (int v = 0; v < key.size(); v++) {
+        if (in_mst[v] == false && key[v] < min)
+            min = key[v], min_index = v;
+    }
+
+    return min_index;
+}
+int find_edge(const std::vector<Edge> &graph, int source, int destination) {
+    for (int edge = 0; edge < graph.size(); edge++) {
+        if (((graph[edge].source == source) && (graph[edge].destination == destination)) ||
+            ((graph[edge].source == destination) && (graph[edge].destination == source))) {
+            return edge;
+        }
+    }
+    return -1;
+}
+
+void printMST(const std::vector<Edge> &graph, const std::vector<int> &mst_parent, const int total_vertices) {
+    std::cout << "Selected Edges:" << std::endl;
+    for (int vertex = 1; vertex < total_vertices; vertex++) {
+        int edge_index = find_edge(graph, mst_parent[vertex], vertex);
+        std::cout << mst_parent[vertex] << " -- " << vertex << " \tWeight: " << graph[edge_index].weight << std::endl;
+    }
+}
+
+void primMST(std::vector<std::vector<int>> graph, const int total_vertices) {
+    std::vector<int> mst_parent(total_vertices);
+    std::vector<int> key(total_vertices);
+    std::vector<bool> in_mst(total_vertices, false);
+
+    for (int vertex = 0; vertex < total_vertices; vertex++) {
+        key[vertex] = INT_MAX;
+    }
+
+    key[0] = 0;
+    mst_parent[0] = -1;
+
+    for (int count = 0; count < total_vertices - 1; count++) {
+        int u = get_min_key(key, in_mst);
+        in_mst[u] = true;
+
+        for (int v = 0; v < total_vertices; v++) {
+            if (graph[u][v] && (in_mst[v] == false) && (graph[u][v] < key[v])) {
+                mst_parent[v] = u, key[v] = graph[u][v];
+            }
+        }
+    }
+
+    std::vector<Edge> mst;
+    int mst_weight = 0;
+    for (int vertex = 1; vertex < total_vertices; vertex++) {
+        if (mst_parent[vertex] != -1) {
+            int source = vertex;
+            int weight = key[vertex];
+            mst.push_back({mst_parent[source], source, weight});
+            mst_weight += weight;
+        }
+    }
+
+    std::cout << "Prim's Minimum Spanning Tree Weight: " << mst_weight << std::endl;
+    printMST(mst, mst_parent, total_vertices);
+}
+
 int main() {
-    int V = 6;
-    int E = 9;
     std::vector<Edge> edges = {
         {0, 1, 5},
         {0, 2, 7},
@@ -144,12 +203,19 @@ int main() {
         {2, 3, 3},
         {2, 4, 4},
         {3, 4, 3}};
+    int total_vertices = 6;
 
-    std::vector<Edge> graph;
-
-    boruvka(edges, V);
+    boruvka(edges, total_vertices);
     std::cout << std::endl;
-    kruskal(edges, V);
+    kruskal(edges, total_vertices);
+    std::cout << std::endl;
+    std::vector<std::vector<int>> graph = {{0, 5, 7, 0, 0, 0},
+                                           {5, 0, 2, 0, 0, 3},
+                                           {7, 2, 0, 3, 4, 2},
+                                           {0, 0, 3, 0, 3, 0},
+                                           {0, 0, 4, 3, 0, 2},
+                                           {0, 3, 2, 0, 2, 0}};
+    primMST(graph, total_vertices);
 
     return 0;
 }
