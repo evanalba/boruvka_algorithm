@@ -1,10 +1,4 @@
 #include "main.h"
-#include <algorithm>
-#include <iostream>
-#include <limits>
-#include <memory>
-#include <queue>
-#include <vector>
 
 // Sort edges by weight in ascending order.
 bool compare_weights(const Edge &a, const Edge &b) {
