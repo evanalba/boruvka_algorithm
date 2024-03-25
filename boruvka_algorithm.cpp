@@ -1,4 +1,4 @@
-#include "main.h"
+#include "boruvka_algorithm.h"
 
 // Sort edges by weight in ascending order.
 bool compare_weights(const Edge &a, const Edge &b) {
@@ -153,7 +153,7 @@ void print_prim(const std::vector<Edge> &graph, const std::vector<int> &mst_pare
     }
 }
 
-int prim(const std::vector<std::vector<int>>& graph, const int total_vertices) {
+int prim(const std::vector<std::vector<int>> &graph, const int total_vertices) {
     std::vector<int> mst_parent(total_vertices);
     std::vector<int> key(total_vertices);
     std::vector<bool> in_mst(total_vertices, false);
@@ -190,34 +190,4 @@ int prim(const std::vector<std::vector<int>>& graph, const int total_vertices) {
     std::cout << "Prim's Minimum Spanning Tree Weight: " << mst_weight << std::endl;
     print_prim(mst, mst_parent, total_vertices);
     return mst_weight;
-}
-
-int main() {
-    // std::vector<Edge> edges = {
-    //     {0, 1, 5},
-    //     {0, 2, 7},
-    //     {1, 2, 2},
-    //     {1, 5, 3},
-    //     {2, 5, 2},
-    //     {5, 4, 2},
-    //     {2, 3, 3},
-    //     {2, 4, 4},
-    //     {3, 4, 3}};
-    std::vector<Edge> edges;
-    int total_vertices = 0;
-
-    boruvka(edges, total_vertices);
-    std::cout << std::endl;
-    kruskal(edges, total_vertices);
-    std::cout << std::endl;
-    std::vector<std::vector<int>> graph;
-    // std::vector<std::vector<int>> graph = {{0, 5, 7, 0, 0, 0},
-    //                                        {5, 0, 2, 0, 0, 3},
-    //                                        {7, 2, 0, 3, 4, 2},
-    //                                        {0, 0, 3, 0, 3, 0},
-    //                                        {0, 0, 4, 3, 0, 2},
-    //                                        {0, 3, 2, 0, 2, 0}};
-    prim(graph, total_vertices);
-
-    return 0;
 }
