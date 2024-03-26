@@ -1,4 +1,4 @@
 .vscode/
 a.out
-main.dSYM/Contents
-main
+main.dSYM/
+build/
