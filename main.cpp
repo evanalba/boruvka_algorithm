@@ -199,35 +199,42 @@ int prim(const std::vector<std::vector<int>> &graph, const int total_vertices) {
 }
 
 int main() {
-    // TESTING FOR SINGLE GRAPH
-    // std::vector<Edge> edges = {
-    //     {0, 1, 5},
-    //     {0, 2, 7},
-    //     {1, 2, 2},
-    //     {1, 5, 3},
-    //     {2, 5, 2},
-    //     {5, 4, 2},
-    //     {2, 3, 3},
-    //     {2, 4, 4},
-    //     {3, 4, 3}};
-    // std::vector<std::vector<int>> graph = {{0, 5, 7, 0, 0, 0},
-    //                                        {5, 0, 2, 0, 0, 3},
-    //                                        {7, 2, 0, 3, 4, 2},
-    //                                        {0, 0, 3, 0, 3, 0},
-    //                                        {0, 0, 4, 3, 0, 2},
-    //                                        {0, 3, 2, 0, 2, 0}};
-    // const int total_vertices = 6;
-    // TESTING FOR DISCONNECTED GRAPHS
+    // TESTING FOR A SINGLE COMPLETE GRAPH
     std::vector<Edge> edges = {
+        {0, 1, 5},
+        {0, 2, 7},
+        {1, 2, 2},
+        {1, 5, 3},
+        {2, 5, 2},
+        {5, 4, 2},
+        {2, 3, 3},
+        {2, 4, 4},
+        {3, 4, 3}};
+    std::vector<std::vector<int>> graph = {{0, 5, 7, 0, 0, 0},
+                                           {5, 0, 2, 0, 0, 3},
+                                           {7, 2, 0, 3, 4, 2},
+                                           {0, 0, 3, 0, 3, 0},
+                                           {0, 0, 4, 3, 0, 2},
+                                           {0, 3, 2, 0, 2, 0}};
+    int total_vertices = 6;
+    std::cout << "TESTING FOR A SINGLE COMPLETE GRAPH" << std::endl;
+    boruvka(edges, total_vertices);
+    std::cout << std::endl;
+    kruskal(edges, total_vertices);
+    std::cout << std::endl;
+    prim(graph, total_vertices);
+    std::cout << std::endl;
+    // TESTING FOR DISCONNECTED GRAPHS
+    edges = {
         {0, 1, 10},
         {2, 3, 20},
     };
-    std::vector<std::vector<int>> graph = {{0, 10, 0, 0},
-                                           {10, 0, 0, 0},
-                                           {0, 0, 0, 20},
-                                           {0, 0, 20, 0}};
-    const int total_vertices = 4;
-
+    graph = {{0, 10, 0, 0},
+             {10, 0, 0, 0},
+             {0, 0, 0, 20},
+             {0, 0, 20, 0}};
+    total_vertices = 4;
+    std::cout << "TESTING FOR A DISCONNECTED GRAPH" << std::endl;
     boruvka(edges, total_vertices);
     std::cout << std::endl;
     kruskal(edges, total_vertices);
