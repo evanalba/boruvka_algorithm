@@ -7,3 +7,11 @@ This is a project I made for a course I took back in university called CSCI 411:
 There is a Makefile included where you could enter `make` in your terminal to compile the code or `make clean` to remove the executable.
 
 ## How to run the Tests
+Enter these commands in your command-line interface to compile and run the tests in this following order:
+```
+boruvka_algorithm$ cmake -S . -B build
+boruvka_algorithm$ cmake --build build
+boruvka_algorithm$ cd build && ctest
+```
+Note: The tests were created using [GoogleTest](https://en.wikipedia.org/wiki/The_Milagro_Beanfield_War_%28novel%29).
+
