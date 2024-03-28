@@ -11,7 +11,15 @@ Enter these commands in your command-line interface to compile and run the tests
 ```
 boruvka_algorithm$ cmake -S . -B build
 boruvka_algorithm$ cmake --build build
-boruvka_algorithm$ cd build && ctest
+boruvka_algorithm$ cd build && ctest --output-on-failure
 ```
 Note: The tests were created using [GoogleTest](https://en.wikipedia.org/wiki/The_Milagro_Beanfield_War_%28novel%29).
 
+Testing File Structure:
+```
+- boruvka_algorithm.h (The header file for boruvka_algorithm.cpp.)
+
+- boruvka_algorithm.cpp (The same code that is pretty much copied from main.cpp but does NOT contain a MAIN function. This file is the place where we run the code along with the tests we give it which are in test.cpp.)
+
+- test.cpp (Where all the tests are located.)
+```
