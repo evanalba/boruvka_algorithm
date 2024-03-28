@@ -45,7 +45,7 @@ int boruvka(std::vector<Edge> edges, int total_vertices) {
 
     // Keep combining components until all components are processed.
     int numTrees = total_vertices;
-    while (numTrees > 0) {
+    while (numTrees > 1) {
 
         // Find the Lowest Edge between 2 components.
         for (int i = 0; i < edges.size(); i++) {
@@ -104,7 +104,7 @@ int boruvka(std::vector<Edge> edges, int total_vertices) {
     return mst_weight;
 }
 
-int kruskal(const std::vector<Edge> &edges, int total_vertices) {
+int kruskal(std::vector<Edge> edges, int total_vertices) {
     std::vector<Edge> mst;
     int mst_weight = 0;
 
@@ -149,7 +149,7 @@ int get_min_key(const std::vector<int> &key, const std::vector<bool> &in_mst) {
     return min_index;
 }
 
-int prim(const std::vector<std::vector<int>> &graph, const int total_vertices) {
+int prim(std::vector<std::vector<int>> graph, const int total_vertices) {
     if (total_vertices == 0) {
         std::cout << "\nPrim's Minimum Spanning Tree Weight: 0" << std::endl;
         std::cout << "Selected Edges:" << std::endl;

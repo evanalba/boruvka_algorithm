@@ -27,6 +27,7 @@ void union_sets(Node vertex[], int x, int y) {
     }
 }
 
+// Uses the disjoint-set data structure
 int boruvka(std::vector<Edge> edges, int total_vertices) {
     std::vector<Edge> mst;
     int mst_weight = 0;
@@ -44,7 +45,7 @@ int boruvka(std::vector<Edge> edges, int total_vertices) {
 
     // Keep combining components until all components are processed.
     int numTrees = total_vertices;
-    while (numTrees > 0) {
+    while (numTrees > 1) {
 
         // Find the Lowest Edge between 2 components.
         for (int i = 0; i < edges.size(); i++) {

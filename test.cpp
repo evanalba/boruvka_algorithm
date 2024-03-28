@@ -1,8 +1,6 @@
 #include "boruvka_algorithm.h"
 #include <gtest/gtest.h>
 
-// vector<int> x = {10, 100, 1000, 10000, 100000, 500000};
-
 TEST(MST, EmptyGraph) {
     std::vector<Edge> edges;
     const int total_vertices = 0;
@@ -63,14 +61,21 @@ TEST(MST, CompleteGraph) {
     EXPECT_EQ(expected_weight, prim(graph, total_vertices));
 }
 
-// TEST(BoruvkaTest, RandomGraph) {
-//   // Replace with your function to generate random graphs with n vertices and m edges
-//   auto random_graph = GenerateRandomGraph(10, 15);
+TEST(MST, SmallerCompleteGraph) {
+    std::vector<Edge> edges = {
+        {0, 1, 10},
+        {0, 2, 6},
+        {0, 3, 5},
+        {1, 3, 15},
+        {2, 3, 4}};
+    std::vector<std::vector<int>> graph = {{0, 10, 6, 5},
+                                           {0, 0, 5, 0},
+                                           {6, 0, 0, 4},
+                                           {5, 15, 4, 0}};
+    const int total_vertices = 4;
+    const int expected_weight = 19;
 
-//   int total_vertices = random_graph.first;
-//   std::vector<Edge> edges = random_graph.second;
-
-//   auto mst = Boruvka(edges, total_vertices);
-//   EXPECT_TRUE(mst.weight >= 0);  // Weight should not be negative
-//   // You can add additional assertions based on your MST properties
-// }
+    EXPECT_EQ(expected_weight, boruvka(edges, total_vertices));
+    EXPECT_EQ(expected_weight, kruskal(edges, total_vertices));
+    EXPECT_EQ(expected_weight, prim(graph, total_vertices));
+}

@@ -16,9 +16,9 @@ bool compare_weights(const Edge &a, const Edge &b);
 int find_set(Node vertex[], int i);
 void union_sets(Node vertex[], int x, int y);
 int boruvka(std::vector<Edge> edges, int total_vertices);
-int kruskal(const std::vector<Edge> &edges, int total_vertices);
+int kruskal(std::vector<Edge> edges, int total_vertices);
 int get_min_key(const std::vector<int> &key, const std::vector<bool> &in_mst);
 int find_edge(const std::vector<Edge> &graph, int source, int destination);
 void print_prim(const std::vector<Edge> &graph, const std::vector<int> &mst_parent, const int total_vertices);
-int prim(const std::vector<std::vector<int>>& graph, const int total_vertices);
+int prim(std::vector<std::vector<int>> graph, const int total_vertices);
 #endif
