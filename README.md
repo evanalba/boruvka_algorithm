@@ -6,7 +6,7 @@ This is a project I made for a course I took back in university called CSCI 411:
 ## How to run the Code
 There is a Makefile included where you could enter `make` in your terminal to compile the code or `make clean` to remove the executable.
 
-## How to run the Tests
+## How to run the Unit Tests
 Enter these commands in your command-line interface to compile and run the tests in this following order:
 ```
 boruvka_algorithm$ cmake -S . -B build
@@ -15,11 +15,24 @@ boruvka_algorithm$ cd build && ctest --output-on-failure
 ```
 Note: The tests were created using [GoogleTest](https://en.wikipedia.org/wiki/The_Milagro_Beanfield_War_%28novel%29).
 
-Testing File Structure:
+Unit Testing File Structure:
 ```
 - boruvka_algorithm.h (The header file for boruvka_algorithm.cpp.)
 
 - boruvka_algorithm.cpp (The same code that is pretty much copied from main.cpp but does NOT contain a MAIN function. This file is the place where we run the code along with the tests we give it which are in test.cpp.)
 
 - test.cpp (Where all the tests are located.)
+```
+
+## How to run the Runtime Tests
+Enter these commands in your command-line interface to compile and run the runtime tests in this following order:
+```
+boruvka_algorithm$ cd runtime/
+boruvka_algorithm$ make
+boruvka_algorithm$ a.out
+```
+Runtime Testing File Structure:
+```
+- runtime.cpp (source code for runtime tests.)
+- generate_graphs.py (source code to generate graph dataset files that are in the format of: (node)(space)(node)(space)(weight))
 ```
