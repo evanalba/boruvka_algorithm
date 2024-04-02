@@ -1,4 +1,5 @@
-#include "../boruvka_algorithm.cpp"
+#include "boruvka_runtime.cpp"
+#include <chrono>
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -36,20 +37,42 @@ int main() {
     }
 
     infile.close();
+    std::cout << "Total Vertices: " << total_vertices << std::endl
+              << std::endl;
+    std::chrono::high_resolution_clock::time_point start;
+    std::chrono::high_resolution_clock::time_point end;
+    double elapsed = -1;
 
+    std::cout << "Boruvka's algorithm:" << std::endl;
+    start = std::chrono::high_resolution_clock::now();
     boruvka(edges, total_vertices);
-    std::cout << std::endl;
+    end = std::chrono::high_resolution_clock::now();
+    elapsed = std::chrono::duration_cast<std::chrono::duration<double>>(end - start).count();
+    std::cout << "Time elapsed: " << elapsed << std::endl
+              << std::endl;
+
+    std::cout << "Kruskal's algorithm:" << std::endl;
+    start = std::chrono::high_resolution_clock::now();
     kruskal(edges, total_vertices);
-    std::cout << std::endl;
+    end = std::chrono::high_resolution_clock::now();
+    elapsed = std::chrono::duration_cast<std::chrono::duration<double>>(end - start).count();
+    std::cout << "Time elapsed: " << elapsed << std::endl
+              << std::endl;
+
+    std::cout << "Prim's algorithm:" << std::endl;
+    start = std::chrono::high_resolution_clock::now();
     prim(graph, total_vertices);
-    std::cout << std::endl;
-    
-    // Print the 2d graph.
-    for (int i = 0; i < total_vertices; i++) {
-        for (int j = 0; j < total_vertices; j++) {
-            std::cout << graph[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
+    end = std::chrono::high_resolution_clock::now();
+    elapsed = std::chrono::duration_cast<std::chrono::duration<double>>(end - start).count();
+    std::cout << "Time elapsed: " << elapsed << std::endl
+              << std::endl;
+
+    // TESTING: Print the 2d graph.
+    // for (int i = 0; i < total_vertices; i++) {
+    //     for (int j = 0; j < total_vertices; j++) {
+    //         std::cout << graph[i][j] << " ";
+    //     }
+    //     std::cout << std::endl;
+    // }
     return 0;
 }
