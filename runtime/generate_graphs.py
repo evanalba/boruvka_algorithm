@@ -5,11 +5,11 @@ import numpy as np
 import networkx as nx
 
 if __name__=='__main__':
-    n = 100
-    for i in range(5): # Erdos-Renyi random graphs
+    n = 1000
+    for i in range(1): # Erdos-Renyi random graphs
         G = nx.erdos_renyi_graph(n, 0.1)
         nx.set_edge_attributes(G, {e:{'weight': np.random.randint(1, 10)} for e in G.edges()})
-        nx.write_weighted_edgelist(G, 'er_'+str(i)+'.edgelist')
+        nx.write_weighted_edgelist(G, 'er1000_'+str(i)+'.edgelist')
 
     for i in range(5): # Barabasi-Albert random graphs
         G = nx.barabasi_albert_graph(n, 3)

@@ -6,12 +6,12 @@
 
 int main() {
     // Change total number of vertices here!
-    const int total_vertices = 10;
+    const int total_vertices = 100;
     std::vector<Edge> edges;
     std::vector<std::vector<int>> graph(total_vertices, std::vector<int>(total_vertices, 0));
 
     // Change filename here!
-    std::ifstream infile("ba10_0.edgelist");
+    std::ifstream infile("ba100_0.edgelist");
     if (!infile.is_open()) {
         std::cerr << "Error opening file!" << std::endl;
         return 1;
