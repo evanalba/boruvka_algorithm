@@ -23,16 +23,3 @@ Unit Testing File Structure:
 
 - test.cpp (Where all the tests are located.)
 ```
-
-## How to run the Runtime Tests
-Enter these commands in your command-line interface to compile and run the runtime tests in this following order:
-```
-boruvka_algorithm$ cd runtime/
-boruvka_algorithm$ make
-boruvka_algorithm$ a.out
-```
-Runtime Testing File Structure:
-```
-- runtime.cpp (source code for runtime tests.)
-- generate_graphs.py (source code to generate graph dataset files that are in the format of: (node)(space)(node)(space)(weight))
-```
