@@ -13,7 +13,7 @@ boruvka_algorithm$ cmake -S . -B build
 boruvka_algorithm$ cmake --build build
 boruvka_algorithm$ cd build && ctest --output-on-failure
 ```
-Note: The tests were created using [GoogleTest](https://en.wikipedia.org/wiki/The_Milagro_Beanfield_War_%28novel%29).
+Note: The tests were created using [GoogleTest](https://en.wikipedia.org/wiki/Google_Test).
 
 Unit Testing File Structure:
 ```
